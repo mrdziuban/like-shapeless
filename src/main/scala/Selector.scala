@@ -10,7 +10,7 @@ trait Selector[A, Key] {
 object Selector {
   type Aux[A, K, O] = Selector[A, K] { type Out = O }
 
-  inline def apply[A, T](using s: Selector[A, T]): Aux[A, T, s.Out] = s
+  def apply[A, T](using s: Selector[A, T]): Aux[A, T, s.Out] = s
 
   type FindField[T <: Tuple, K] = FindField0[T, K, 0]
 
@@ -19,7 +19,7 @@ object Selector {
     case _ *: t => FindField0[t, K, compiletime.ops.int.S[I]]
   }
 
-  inline given selectorInst[T <: Tuple, K](
+  given selectorInst[T <: Tuple, K](
     using idx: ValueOf[Tuple.Elem[FindField[T, K], 1]],
   ): Selector.Aux[T, K, Tuple.Head[FindField[T, K]]] =
     new Selector[T, K] {
