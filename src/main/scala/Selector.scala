@@ -1,5 +1,7 @@
 package likeShapeless
 
+class ->>[K, +V]
+
 trait Selector[A, Key] {
   type Out
   def apply(a: A): Out
