@@ -1,6 +1,12 @@
 package likeShapeless
 
-class ->>[K, +V]
+import labelled._
+
+object labelled {
+  opaque type ->>[K, +V] = V
+}
+
+extension [K <: Singleton](k: K) def ->>[V](v: V): K ->> V = v.asInstanceOf[K ->> V]
 
 trait Selector[A, Key] {
   type Out
